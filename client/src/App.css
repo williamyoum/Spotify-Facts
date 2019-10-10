@@ -24,3 +24,15 @@
 div, button{
   margin: 30px;
 }
+
+body{
+  background-color: rgb(71, 238, 135);
+}
+
+img{
+  width: 100px;
+}
+
+button1, button2{
+  display: inline-block;
+}

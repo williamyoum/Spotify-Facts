@@ -16,7 +16,7 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
-      nowPlaying: { name: 'Not Checked', albumArt: '' }
+      nowPlaying: { name: 'Now Playing', albumArt: '' }
     }
   }
   getHashParams() {
@@ -44,18 +44,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <a href='http://localhost:8888' > Login to Spotify </a>
         <div>
-          Now Playing: {this.state.nowPlaying.name}
-        </div>
-        <div>
-          <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
-        </div>
-        {this.state.loggedIn &&
-          <button onClick={() => this.getNowPlaying()}>
-            Check Now Playing
-          </button>
-        }
+            <img id= "logo" src = "https://developer.spotify.com/assets/branding-guidelines/icon2@2x.png" alt= "Spotify Logo" />
+          </div>
+          <a href='http://localhost:4002'><button id= "button2">Login to Spotify</button></a>
+          {this.state.loggedIn && <button id= "button1" onClick={() => this.getNowPlaying()}>
+                Check Now Playing
+              </button>}
+          <div>
+            {this.state.nowPlaying.name}
+          </div>
+          <div>
+            <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
+          </div>
+              
       </div>
     );
   }
