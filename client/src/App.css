@@ -16,7 +16,15 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+header{
+  font-family: Helvetica;
+  bottom: 0;
+  right: 0;
+  width: 0px;
+  font-size: 90px;
+  position: static;
+  left: 150px;
+}
 .App-link {
   color: #09d3ac;
 }
@@ -33,6 +41,6 @@ img{
   width: 100px;
 }
 
-button1, button2{
+.button1, .button2{
   display: inline-block;
 }
