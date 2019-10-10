@@ -111,8 +111,9 @@ class App extends Component {
           <div class="column">
         <header>
           DISCOVER KEY,
-          TIME SIG,
-          MODE
+          TIME SIGNATURE,
+          MODE, 
+          TEMPO
         </header>
           </div>
           <div class="column">
@@ -132,6 +133,7 @@ class App extends Component {
             <div>
               {this.state.nowPlaying.name}
             </div>
+            {this.printEasy}
             <div>
               <dl>
                 <dt>Here is the key: 
@@ -151,11 +153,6 @@ class App extends Component {
               <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 150, width: 150 }} />
             </div>
           </div>
-
-
-
-
-
           </div>
         </div>
 
