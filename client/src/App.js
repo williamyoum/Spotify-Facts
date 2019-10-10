@@ -43,7 +43,6 @@ class App extends Component {
           song_timeSignature: data.time_signature,
           song_mode: data.mode,
           song_tempo: data.tempo,
-
         }
       })
      }, function(err) {
@@ -64,44 +63,91 @@ class App extends Component {
   }
 
   printEasy(){
-    if(this.state.audioFacts.key == 0){
-      this.state.audioFacts.key = 'C';
+    if(this.state.audioFacts.key === 0){
+      this.setState({
+        audioFacts: {
+          song_key: 'C',
+        }
+      })
     }
-    if(this.state.audioFacts.key == 1){
-      this.state.audioFacts.key = 'C#/Db';
+    if(this.state.audioFacts.key === 1){
+      this.setState({
+        audioFacts: {
+          song_key: 'C#/Db',
+        }
+      })
     }
-    if(this.state.audioFacts.key == 2){
-      this.state.audioFacts.key = 'D';
+    if(this.state.audioFacts.key === 2){
+      this.setState({
+        audioFacts: {
+          song_key: 'D',
+        }
+      })
     }
-    if(this.state.audioFacts.key == 3){
-      this.state.audioFacts.key = 'D#/Eb';
+    if(this.state.audioFacts.key === 3){
+      this.setState({
+        audioFacts: {
+          song_key: 'D#/Eb',
+        }
+      })
     }
-    if(this.state.audioFacts.key == 4){
-      this.state.audioFacts.key = 'E';
+    if(this.state.audioFacts.key === 4){
+      this.setState({
+        audioFacts: {
+          song_key: 'E',
+        }
+      })
     }
-    if(this.state.audioFacts.key == 5){
-      this.state.audioFacts.key = 'F';
+    if(this.state.audioFacts.key === 5){
+      this.setState({
+        audioFacts: {
+          song_key: 'F',
+        }
+      })
     }
-    if(this.state.audioFacts.key == 6){
-      this.state.audioFacts.key = 'F#/Gb';
+    if(this.state.audioFacts.key === 6){
+      this.setState({
+        audioFacts: {
+          song_key: 'F#/Gb',
+        }
+      })
     }
-    if(this.state.audioFacts.key == 7){
-      this.state.audioFacts.key = 'G';
+    if(this.state.audioFacts.key === 7){
+      this.setState({
+        audioFacts: {
+          song_key: 'G',
+        }
+      })
     }
-    if(this.state.audioFacts.key == 8){
-      this.state.audioFacts.key = 'G#/Ab';
+    if(this.state.audioFacts.key === 2){
+      this.setState({
+        audioFacts: {
+          song_key: 'D',
+        }
+      })
     }
-    if(this.state.audioFacts.key == 9){
-      this.state.audioFacts.key = 'A';
+    if(this.state.audioFacts.key === 9){
+      this.setState({
+        audioFacts: {
+          song_key: 'A',
+        }
+      })
     }
-    if(this.state.audioFacts.key == 10){
-      this.state.audioFacts.key = 'A#/Bb';
+    if(this.state.audioFacts.key === 10){
+      this.setState({
+        audioFacts: {
+          song_key: 'A#/Bb',
+        }
+      })
     }
-    if(this.state.audioFacts.key == 11){
-      this.state.audioFacts.key = 'B';
+    if(this.state.audioFacts.key === 11){
+      this.setState({
+        audioFacts: {
+          song_key: 'B',
+        }
+      })
     }
-
-
+    console.log("printed easy");
 
   }
   render() {
@@ -110,7 +156,9 @@ class App extends Component {
         <div class="row">
           <div class="column">
         <header>
-          DISCOVER KEY,
+          {/* move to header.js */}
+          DISCOVER 
+          KEY,
           TIME SIGNATURE,
           MODE, 
           TEMPO
@@ -126,28 +174,19 @@ class App extends Component {
             {/* Login Button */}
             <a href='http://localhost:4002'><button id="button1">Login to Spotify</button></a>
             {/* Now Playing Button */}
-            {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()}>Check Now Playing</button>}
+            {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()}>Check Current Playing</button>}
             {/* text input for track name */}
             {/* Audio Features Button */}
-            {this.state.loggedIn && <button id="button3" onClick={() => this.getAudioFacts()}>Get Facts</button>}
+            {this.state.loggedIn && <button id="button3" onClick={() => this.getAudioFacts()}>Get Audio Facts</button>}
             <div>
               {this.state.nowPlaying.name}
             </div>
             {this.printEasy}
             <div>
-              <dl>
-                <dt>Here is the key: 
-                  <dd>{this.state.audioFacts.song_key}</dd>
-                </dt>
-                <dt>Whats the time signature?<dd>{this.state.audioFacts.song_timeSignature}</dd>
-                </dt>
-                <dt>Ever wonder what the mode was?
-                  <dd>{this.state.audioFacts.song_mode}</dd>
-                </dt>
-                <dt>And Here's the tempo:
-                  <dd>{this.state.audioFacts.song_tempo}</dd>
-                </dt>
-              </dl>
+                <p>Key: {this.state.audioFacts.song_key}</p>
+                <p>Time signature? {this.state.audioFacts.song_timeSignature}</p>
+                <p>Mode: {this.state.audioFacts.song_mode} </p>
+                <p>Tempo:  {this.state.audioFacts.song_tempo} </p>
             </div>
             <div>
               <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 150, width: 150 }} />

@@ -17,6 +17,7 @@
   color: white;
 }
 header{
+  /* move to header.css */
   font-family: Helvetica;
   bottom: 0;
   right: 0;
@@ -25,6 +26,7 @@ header{
   position: static;
   left: 150px;
 }
+
 .App-link {
   color: #09d3ac;
 }
@@ -41,7 +43,7 @@ img{
   width: 100px;
 }
 
-.button1, .button2{
+.button1, .button2, .button3{
   display: inline-block;
 }
 
