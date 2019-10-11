@@ -16,9 +16,9 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
-      nowPlaying: { name: 'Now Playing', albumArt: '' },
-      audioFacts: { key: '', timeSignature: '', mode: '', tempo: ''},
-      currURI: '',
+      nowPlaying: { name: 'Now Playing', albumArt: '', accessURI: ''},
+      audioFacts: { key: '', timeSignature: '', mode: '', tempo: ' '},
+      keyConversion: '',
     };
     this.getAudioFacts = this.getAudioFacts.bind(this);
 
@@ -35,19 +35,24 @@ class App extends Component {
     return hashParams;
   }
   getAudioFacts() {
-    spotifyApi.getAudioFeaturesForTrack('0H2MmFtJgoeywCIbAN3sid')
-    .then((data) => {
-      this.setState({
-        audioFacts: {
-          song_key: data.key,
-          song_timeSignature: data.time_signature,
-          song_mode: data.mode,
-          song_tempo: data.tempo,
-        }
-      })
-     }, function(err) {
-      console.error(err);
-    });
+    // this.accessURI(); //returns songURI
+    const feedURI = this.state.nowPlaying.accessURI;
+    spotifyApi.getAudioFeaturesForTrack(feedURI)
+      .then((data) => {
+        this.setState({
+          audioFacts: {
+            song_key: data.key,
+            song_timeSignature: data.time_signature,
+            song_mode: data.mode,
+            song_tempo: data.tempo,
+          },
+        })
+        this.printKeyEasy();
+        // this.printTimeSigEasy();
+        this.printModeEasy();
+      }, function (err) {
+        console.error(err);
+      });
   }
   getNowPlaying() {
     spotifyApi.getMyCurrentPlaybackState()
@@ -55,121 +60,106 @@ class App extends Component {
         this.setState({
           nowPlaying: {
             name: response.item.name,
-            albumArt: response.item.album.images[0].url
+            albumArt: response.item.album.images[0].url,
+            accessURI: response.item.id,
           },
-          currURI: response.item.decodeURIComponent,
         });
       })
   }
-
-  printEasy(){
-    if(this.state.audioFacts.key === 0){
+  printModeEasy(){
+    if (this.state.audioFacts.song_key === 0) {
       this.setState({
-        audioFacts: {
-          song_key: 'C',
-        }
+        modeConversion: 'Minor',
       })
     }
-    if(this.state.audioFacts.key === 1){
+    else{
       this.setState({
-        audioFacts: {
-          song_key: 'C#/Db',
-        }
+        modeConversion: 'Major',
       })
     }
-    if(this.state.audioFacts.key === 2){
+  }
+  printKeyEasy() {
+    if (this.state.audioFacts.song_key === 0) {
       this.setState({
-        audioFacts: {
-          song_key: 'D',
-        }
+        keyConversion: 'C',
       })
     }
-    if(this.state.audioFacts.key === 3){
+    if (this.state.audioFacts.song_key === 1) {
       this.setState({
-        audioFacts: {
-          song_key: 'D#/Eb',
-        }
+        keyConversion: 'C#/Db',
       })
     }
-    if(this.state.audioFacts.key === 4){
+    if (this.state.audioFacts.song_key === 2) {
       this.setState({
-        audioFacts: {
-          song_key: 'E',
-        }
+        keyConversion: 'D',
       })
     }
-    if(this.state.audioFacts.key === 5){
+    if (this.state.audioFacts.song_key === 3) {
       this.setState({
-        audioFacts: {
-          song_key: 'F',
-        }
+        keyConversion: 'D#/Eb',
       })
     }
-    if(this.state.audioFacts.key === 6){
+    if (this.state.audioFacts.song_key === 4) {
       this.setState({
-        audioFacts: {
-          song_key: 'F#/Gb',
-        }
+        keyConversion: 'E',
       })
     }
-    if(this.state.audioFacts.key === 7){
+    if (this.state.audioFacts.song_key === 5) {
       this.setState({
-        audioFacts: {
-          song_key: 'G',
-        }
+        keyConversion: 'F',
       })
     }
-    if(this.state.audioFacts.key === 2){
+    if (this.state.audioFacts.song_key === 6) {
       this.setState({
-        audioFacts: {
-          song_key: 'D',
-        }
+        keyConversion: 'F#/Gb',
       })
     }
-    if(this.state.audioFacts.key === 9){
+    if (this.state.audioFacts.song_key === 7) {
       this.setState({
-        audioFacts: {
-          song_key: 'A',
-        }
+        keyConversion: 'G',
       })
     }
-    if(this.state.audioFacts.key === 10){
+    if (this.state.audioFacts.song_key === 8) {
       this.setState({
-        audioFacts: {
-          song_key: 'A#/Bb',
-        }
+        keyConversion: 'G#/Ab',
       })
     }
-    if(this.state.audioFacts.key === 11){
+    if (this.state.audioFacts.song_key === 9) {
       this.setState({
-        audioFacts: {
-          song_key: 'B',
-        }
+        keyConversion: 'A',
+      })
+    }
+    if (this.state.audioFacts.song_key === 10) {
+      this.setState({
+        keyConversion: 'A#/Bb',
+      })
+    }
+    if (this.state.audioFacts.song_key === 11) {
+      this.setState({
+        keyConversion: 'B',
       })
     }
     console.log("printed easy");
-
   }
   render() {
     return (
       <div className="App">
-        <div class="row">
-          <div class="column">
-        <header>
-          {/* move to header.js */}
-          DISCOVER 
-          KEY,
-          TIME SIGNATURE,
-          MODE, 
-          TEMPO
+        <div className="row">
+          <div className="column">
+            <header>
+              {/* move to header.js */}
+              DISCOVER
+              KEY,
+              TIME SIGNATURE,
+              MODE,
+              TEMPO
         </header>
           </div>
-          <div class="column">
+          <div className="column">
             <div>
-              <a href= 'http://localhost:3000'>
+              <a href='http://localhost:3000'>
                 <img id="logo" src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-logo-transparent-vector-1.png" alt="Spotify Logo" />
-                </a>
-              
+              </a>
             </div>
             {/* Login Button */}
             <a href='http://localhost:4002'><button id="button1">Login to Spotify</button></a>
@@ -181,22 +171,28 @@ class App extends Component {
             <div>
               {this.state.nowPlaying.name}
             </div>
-            {this.printEasy}
+            {/* {this.printKeyEasy} */}
             <div>
-                <p>Key: {this.state.audioFacts.song_key}</p>
-                <p>Time signature? {this.state.audioFacts.song_timeSignature}</p>
-                <p>Mode: {this.state.audioFacts.song_mode} </p>
-                <p>Tempo:  {this.state.audioFacts.song_tempo} </p>
+              <p>Key: {this.state.audioFacts.song_key} // {this.state.keyConversion}</p>
+              <p>Time signature: {this.state.audioFacts.song_timeSignature} / 4</p>
+              <p>Mode: {this.state.audioFacts.song_mode} // {this.state.modeConversion} </p>
+              <p>Tempo:  {this.state.audioFacts.song_tempo} BPM</p>
             </div>
             <div>
               <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 150, width: 150 }} />
             </div>
           </div>
-          </div>
         </div>
+      </div>
 
     );
   }
 }
 
 export default App;
+
+
+// notes:
+// make sure the current song gives back the URI, feed that URI into audioFacts.
+// maybe move the answers next to the head, aligned, but in the columnR
+
