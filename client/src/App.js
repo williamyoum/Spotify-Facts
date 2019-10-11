@@ -167,7 +167,7 @@ class App extends Component {
             {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()}>CHECK CURRENT SONG</button>}
             {/* text input for track name */}
             {/* Audio Features Button */}
-            {this.state.loggedIn && <button id="button3" onClick={() => this.getAudioFacts()}>GET SONG FACTS</button>}
+            {this.state.loggedIn && <button id="button3" onClick={() => this.getAudioFacts()}>ANALYZE SONG</button>}
             <div>
               {this.state.nowPlaying.name}
             </div>
