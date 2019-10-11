@@ -30,21 +30,28 @@ header{
 .App-link {
   color: #09d3ac;
 }
-
-div, button{
+div{
   margin: 30px;
 }
-
 body{
   background-color: rgb(71, 238, 135);
 }
-
 img{
   width: 100px;
 }
-
-.button1, .button2, .button3{
+button{
   display: inline-block;
+  background-color:  rgb(71, 238, 135); /* Green */
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  font: helvetica;
+  width: 50%;
+  /* float: left; */
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .columnL {

@@ -162,12 +162,12 @@ class App extends Component {
               </a>
             </div>
             {/* Login Button */}
-            <a href='http://localhost:4002'><button id="button1">Login to Spotify</button></a>
+            <a href='http://localhost:4002'><button id="button1">LOGIN TO SPOTIFY</button></a>
             {/* Now Playing Button */}
-            {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()}>Check Current Playing</button>}
+            {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()}>CHECK CURRENT SONG</button>}
             {/* text input for track name */}
             {/* Audio Features Button */}
-            {this.state.loggedIn && <button id="button3" onClick={() => this.getAudioFacts()}>Get Audio Facts</button>}
+            {this.state.loggedIn && <button id="button3" onClick={() => this.getAudioFacts()}>GET SONG FACTS</button>}
             <div>
               {this.state.nowPlaying.name}
             </div>
