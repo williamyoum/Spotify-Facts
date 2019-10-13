@@ -16,7 +16,7 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
-      nowPlaying: { name: '', albumArt: '', accessURI: ''},
+      nowPlaying: { name: 'Now Playing...', albumArt: '', accessURI: ''},
       audioFacts: { key: '', timeSignature: '', mode: '', tempo: ' '},
       keyConversion: '',
     };
@@ -166,12 +166,12 @@ class App extends Component {
             {/* Login Button */}
             <a href='http://localhost:4002'><button id="button1">LOGIN TO SPOTIFY</button></a>
             {/* Now Playing Button */}
-              {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()}>CHECK CURRENT SONG</button>}
+              {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()}>WHAT'S PLAYING?</button>}
             {/* text input for track name */}
             {/* Audio Features Button */}
             {this.state.loggedIn && <button id="button3" onClick={() => this.getAudioFacts()}>ANALYZE SONG</button>}
             <div class="nowPlaying">
-              {this.state.nowPlaying.name}
+              <p>{this.state.nowPlaying.name}</p>
             </div>
             {/* {this.printKeyEasy} */}
             <div>
@@ -182,7 +182,7 @@ class App extends Component {
               <p class="answers">Energy:  {this.state.audioFacts.song_energy} </p>
             </div>
             <div>
-              <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 150, width: 150 }} />
+              <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 400, width: 400 }} />
             </div>
           </div>
         </div>
