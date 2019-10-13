@@ -12,7 +12,7 @@
     "spotify-web-api-js": "^0.22.1"
   },
   "scripts": {
-    "start": "PORT=4002 react-scripts start", 
+    "start": "react-scripts start", 
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",

@@ -16,7 +16,7 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
-      nowPlaying: { name: 'Now Playing', albumArt: '', accessURI: ''},
+      nowPlaying: { name: '', albumArt: '', accessURI: ''},
       audioFacts: { key: '', timeSignature: '', mode: '', tempo: ' '},
       keyConversion: '',
     };
@@ -166,20 +166,20 @@ class App extends Component {
             {/* Login Button */}
             <a href='http://localhost:4002'><button id="button1">LOGIN TO SPOTIFY</button></a>
             {/* Now Playing Button */}
-            {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()}>CHECK CURRENT SONG</button>}
+              {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()}>CHECK CURRENT SONG</button>}
             {/* text input for track name */}
             {/* Audio Features Button */}
             {this.state.loggedIn && <button id="button3" onClick={() => this.getAudioFacts()}>ANALYZE SONG</button>}
-            <div>
+            <div class="nowPlaying">
               {this.state.nowPlaying.name}
             </div>
             {/* {this.printKeyEasy} */}
             <div>
-              <p>Key: {this.state.audioFacts.song_key} // {this.state.keyConversion}</p>
-              <p>Time signature: {this.state.audioFacts.song_timeSignature} / 4</p>
-              <p>Mode: {this.state.audioFacts.song_mode} // {this.state.modeConversion} </p>
-              <p>Tempo:  {this.state.audioFacts.song_tempo} BPM</p>
-              <p>Energy:  {this.state.audioFacts.song_energy} </p>
+              <p class="answers">KEY: {this.state.audioFacts.song_key} // {this.state.keyConversion}</p>
+              <p class="answers">Time signature: {this.state.audioFacts.song_timeSignature} / 4</p>
+              <p class="answers">Mode: {this.state.audioFacts.song_mode} // {this.state.modeConversion} </p>
+              <p class="answers">Tempo:  {this.state.audioFacts.song_tempo} BPM</p>
+              <p class="answers">Energy:  {this.state.audioFacts.song_energy} </p>
             </div>
             <div>
               <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 150, width: 150 }} />
