@@ -153,7 +153,8 @@ class App extends Component {
               KEY,
               TIME SIGNATURE,
               MODE,
-              TEMPO
+              TEMPO,
+              ENERGY
         </header>
           </div>
           <div className="column">
