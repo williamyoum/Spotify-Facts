@@ -45,6 +45,7 @@ class App extends Component {
             song_timeSignature: data.time_signature,
             song_mode: data.mode,
             song_tempo: data.tempo,
+            song_energy: data.energy,
           },
         })
         this.printKeyEasy();
@@ -157,7 +158,7 @@ class App extends Component {
           </div>
           <div className="column">
             <div>
-              <a href='http://localhost:3000'>
+              <a href='http://localhost:4002/'>
                 <img id="logo" src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-logo-transparent-vector-1.png" alt="Spotify Logo" />
               </a>
             </div>
@@ -177,6 +178,7 @@ class App extends Component {
               <p>Time signature: {this.state.audioFacts.song_timeSignature} / 4</p>
               <p>Mode: {this.state.audioFacts.song_mode} // {this.state.modeConversion} </p>
               <p>Tempo:  {this.state.audioFacts.song_tempo} BPM</p>
+              <p>Energy:  {this.state.audioFacts.song_energy} </p>
             </div>
             <div>
               <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 150, width: 150 }} />
