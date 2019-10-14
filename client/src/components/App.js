@@ -19,6 +19,7 @@ class App extends Component {
       nowPlaying: { name: 'Now Playing...', albumArt: '', accessURI: ''},
       audioFacts: { key: '', timeSignature: '', mode: '', tempo: ' '},
       keyConversion: '',
+      me: { me_name: '', me_image: ''},
     };
     this.getAudioFacts = this.getAudioFacts.bind(this);
 
@@ -34,6 +35,18 @@ class App extends Component {
     }
     return hashParams;
   }
+  // getMyName(){
+  //   spotifyApi.getMe()
+  //     .then((data) => {
+  //       this.setState({
+  //         me: {
+  //           me_name: data.display_name,
+  //           me_image: data.images,
+  //         },
+  //     })
+  //   })
+
+  // }
   getAudioFacts() {
     // this.accessURI(); //returns songURI
     const feedURI = this.state.nowPlaying.accessURI;
@@ -164,7 +177,7 @@ class App extends Component {
               </a>
             </div>
             {/* Login Button */}
-            <a href='http://localhost:4002'><button id="button1">LOGIN TO SPOTIFY</button></a>
+            <a href='http://localhost:4002/'><button id="button1">LOGIN TO SPOTIFY</button></a>
             {/* Now Playing Button */}
               {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()}>WHAT'S PLAYING?</button>}
             {/* text input for track name */}
@@ -173,9 +186,14 @@ class App extends Component {
             <div class="nowPlaying">
               <p>{this.state.nowPlaying.name}</p>
             </div>
+            {/* <div>
+            {this.state.loggedIn && <button id="button4" onClick={() => this.getMyName()}>WHO AM I?</button>}
+              {this.state.me.me_name}
+              {this.state.me.me_image}
+            </div> */}
             {/* {this.printKeyEasy} */}
             <div>
-              <p class="answers">KEY: {this.state.audioFacts.song_key} // {this.state.keyConversion}</p>
+              <p class="answers">Key: {this.state.audioFacts.song_key} // {this.state.keyConversion}</p>
               <p class="answers">Time signature: {this.state.audioFacts.song_timeSignature} / 4</p>
               <p class="answers">Mode: {this.state.audioFacts.song_mode} // {this.state.modeConversion} </p>
               <p class="answers">Tempo:  {this.state.audioFacts.song_tempo} BPM</p>
