@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import Header from './Header.js';
 import SpotifyWebApi from 'spotify-web-api-js';
-const spotifyApi = new SpotifyWebApi();
 
+const spotifyApi = new SpotifyWebApi();
 
 class App extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class App extends Component {
     const params = this.getHashParams();
     console.log(params);
     const token = params.access_token;
+    console.log("Here is the token: " + token);
     if (token) {
       spotifyApi.setAccessToken(token);
     }
@@ -20,6 +21,7 @@ class App extends Component {
       audioFacts: { key: '', timeSignature: '', mode: '', tempo: ' '},
       keyConversion: '',
       me: { me_name: '', me_image: ''},
+      recentTracks: {prevSong: ''},
     };
     this.getAudioFacts = this.getAudioFacts.bind(this);
 
@@ -47,6 +49,20 @@ class App extends Component {
   //   })
 
   // }
+  // playOrStop(){
+  //   spotifyApi.
+  // }
+  getRecent(){
+    spotifyApi.getMyRecentlyPlayedTracks()
+      .then((data) =>{
+        this.setState({
+          recentTracks: {
+            prevSong: data.previous.substring,
+          },
+        })
+        console.log("This is the last song played:");
+      });
+  }
   getAudioFacts() {
     // this.accessURI(); //returns songURI
     const feedURI = this.state.nowPlaying.accessURI;
@@ -77,7 +93,9 @@ class App extends Component {
             albumArt: response.item.album.images[0].url,
             accessURI: response.item.id,
           },
-        });
+        })
+        this.getAudioFacts();
+        this.getRecent();
       })
   }
   printModeEasy(){
@@ -158,32 +176,29 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="row">
-          <div className="column">
-            <header>
-              {/* move to header.js */}
-              DISCOVER
-              KEY,
-              TIME SIGNATURE,
-              MODE,
-              TEMPO,
-              ENERGY
-        </header>
-          </div>
-          <div className="column">
             <div>
-              <a href='http://localhost:4002/'>
+              <a href='http://tracklearn-backend.herokuapp.com/login'>
+              {/* http://tracklearn-backend.herokuapp.com/login */}
                 <img id="logo" src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-logo-transparent-vector-1.png" alt="Spotify Logo" />
               </a>
             </div>
             {/* Login Button */}
-            <a href='http://localhost:4002/'><button id="button1">LOGIN TO SPOTIFY</button></a>
+            {/* http://tracklearn-backend.herokuapp.com/login */}
+            <a href= 'http://tracklearn-backend.herokuapp.com/login'>
+              <button id="button1">LOGIN TO SPOTIFY</button>
+            </a>
             {/* Now Playing Button */}
-              {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()}>WHAT'S PLAYING?</button>}
+            <div className="column">
+            <Header />
+            </div>
+            <div>
+            Play a song on Spotify!
+            {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()} >WHAT'S PLAYING?</button>}
+            </div>
             {/* text input for track name */}
             {/* Audio Features Button */}
-            {this.state.loggedIn && <button id="button3" onClick={() => this.getAudioFacts()}>ANALYZE SONG</button>}
-            <div class="nowPlaying">
+            {/* {this.state.loggedIn && <button id="button3" onClick={() => this.getAudioFacts()}>ANALYZE SONG</button>} */}
+            <div className="nowPlaying">
               <p>{this.state.nowPlaying.name}</p>
             </div>
             {/* <div>
@@ -193,19 +208,19 @@ class App extends Component {
             </div> */}
             {/* {this.printKeyEasy} */}
             <div>
-              <p class="answers">Key: {this.state.audioFacts.song_key} // {this.state.keyConversion}</p>
-              <p class="answers">Time signature: {this.state.audioFacts.song_timeSignature} / 4</p>
-              <p class="answers">Mode: {this.state.audioFacts.song_mode} // {this.state.modeConversion} </p>
-              <p class="answers">Tempo:  {this.state.audioFacts.song_tempo} BPM</p>
-              <p class="answers">Energy:  {this.state.audioFacts.song_energy} </p>
+              Last song played:
+              {this.state.loggedIn && this.state.recentTracks.prevSong}
             </div>
             <div>
-              <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 400, width: 400 }} />
+              <p className="answers">Key: {this.state.keyConversion}</p>
+              <p className="answers">Time signature: {this.state.audioFacts.song_timeSignature} per bar</p>
+              <p className="answers">Mode: {this.state.modeConversion} </p>
+              <p className="answers">Tempo:  {this.state.audioFacts.song_tempo} BPM</p>
+            </div>
+            <div>
+              <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 200, width: 200 }} />
             </div>
           </div>
-        </div>
-      </div>
-
     );
   }
 }
