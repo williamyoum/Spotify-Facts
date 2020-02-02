@@ -17,7 +17,7 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
-      nowPlaying: { name: 'Now Playing...', albumArt: '', accessURI: ''},
+      nowPlaying: { name: '', albumArt: '', accessURI: ''},
       audioFacts: { key: '', timeSignature: '', mode: '', tempo: ' '},
       keyConversion: '',
       me: { me_name: '', me_image: ''},
@@ -37,27 +37,20 @@ class App extends Component {
     }
     return hashParams;
   }
-  // getMyName(){
-  //   spotifyApi.getMe()
-  //     .then((data) => {
-  //       this.setState({
-  //         me: {
-  //           me_name: data.display_name,
-  //           me_image: data.images,
-  //         },
-  //     })
-  //   })
 
-  // }
-  // playOrStop(){
-  //   spotifyApi.
-  // }
   getRecent(){
     spotifyApi.getMyRecentlyPlayedTracks()
       .then((data) =>{
         this.setState({
           recentTracks: {
-            prevSong: data.previous.substring,
+            prevSong: data.previous,
+          },
+          audioFacts: {
+            song_key: data.previous.key,
+            song_timeSignature: data.time_signature,
+            song_mode: data.mode,
+            song_tempo: data.tempo,
+            song_energy: data.energy,
           },
         })
         console.log("This is the last song played:");
@@ -84,8 +77,22 @@ class App extends Component {
         console.error(err);
       });
   }
+
+
   getNowPlaying() {
-    spotifyApi.getMyCurrentPlaybackState()
+
+    if(!spotifyApi.getMyCurrentPlaybackState()){
+      // if the playbackstate doesn't exist, then fill the state with the previous song.
+      this.getRecent();
+      this.getAudioFacts();
+      this.setState({
+          nowPlaying: {
+            name: 'empty'
+          }
+      })
+    }
+    else{
+      spotifyApi.getMyCurrentPlaybackState()
       .then((response) => {
         this.setState({
           nowPlaying: {
@@ -96,7 +103,10 @@ class App extends Component {
         })
         this.getAudioFacts();
         this.getRecent();
-      })
+      })  
+    }
+
+
   }
   printModeEasy(){
     if (this.state.audioFacts.song_key === 0) {
@@ -106,7 +116,7 @@ class App extends Component {
     }
     else{
       this.setState({
-        modeConversion: 'Major',
+        modeConversion: 'Major', 
       })
     }
   }
@@ -171,56 +181,74 @@ class App extends Component {
         keyConversion: 'B',
       })
     }
-    console.log("printed easy");
   }
   render() {
     return (
       <div className="App">
-            <div>
-              <a href='http://tracklearn-backend.herokuapp.com/login'>
-              {/* http://tracklearn-backend.herokuapp.com/login */}
-                <img id="logo" src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-logo-transparent-vector-1.png" alt="Spotify Logo" />
-              </a>
-            </div>
-            {/* Login Button */}
-            {/* http://tracklearn-backend.herokuapp.com/login */}
-            <a href= 'http://tracklearn-backend.herokuapp.com/login'>
-              <button id="button1">LOGIN TO SPOTIFY</button>
-            </a>
-            {/* Now Playing Button */}
-            <div className="column">
-            <Header />
-            </div>
-            <div>
-            Play a song on Spotify!
-            {this.state.loggedIn && <button id="button2" onClick={() => this.getNowPlaying()} >WHAT'S PLAYING?</button>}
-            </div>
-            {/* text input for track name */}
-            {/* Audio Features Button */}
-            {/* {this.state.loggedIn && <button id="button3" onClick={() => this.getAudioFacts()}>ANALYZE SONG</button>} */}
-            <div className="nowPlaying">
-              <p>{this.state.nowPlaying.name}</p>
-            </div>
-            {/* <div>
-            {this.state.loggedIn && <button id="button4" onClick={() => this.getMyName()}>WHO AM I?</button>}
-              {this.state.me.me_name}
-              {this.state.me.me_image}
-            </div> */}
-            {/* {this.printKeyEasy} */}
-            <div>
-              Last song played:
-              {this.state.loggedIn && this.state.recentTracks.prevSong}
-            </div>
-            <div>
-              <p className="answers">Key: {this.state.keyConversion}</p>
-              <p className="answers">Time signature: {this.state.audioFacts.song_timeSignature} per bar</p>
-              <p className="answers">Mode: {this.state.modeConversion} </p>
-              <p className="answers">Tempo:  {this.state.audioFacts.song_tempo} BPM</p>
-            </div>
-            <div>
-              <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 200, width: 200 }} />
-            </div>
-          </div>
+              <Header />
+                {/* http://tracklearn-backend.herokuapp.com/login */}
+              <div className = "entrance-content">
+                <div className = "logo-content">
+                 <img id="logo" src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-logo-transparent-vector-1.png" alt="Spotify Logo" />
+                </div>
+                {!this.state.loggedIn && 
+                <div className = "login-button">
+                  <a href= 'http://localhost:4002/'>
+                      <button id="button1">LOGIN</button>
+                  </a>
+                </div>
+                }                
+              </div>  
+
+                
+          <div className = "main-content">
+                <div className = "button-content">
+                  {this.state.loggedIn && 
+                    <button id="button2" onClick={() => 
+                      this.getNowPlaying()}>
+                      Get Facts
+                    </button>
+                  }
+                </div>
+                {/* text input for track name */}
+                {/* Audio Features Button */}
+                <div className="nowPlaying">
+                  <p>
+                    {this.state.nowPlaying.name}
+                  </p>
+                </div>
+                <div>
+                  {this.state.loggedIn &&
+                    <div className = "track-facts-rectangle">
+                      <div className = "album-art-box">
+                        <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 290, width: 290 }} />
+                      </div>
+                        {this.state.nowPlaying.name != '' && 
+                          <div className="answers">
+                            <div className ="category-label">Key</div>
+                            <div className = "results">{this.state.keyConversion}</div>
+                          </div>}
+                        {this.state.nowPlaying.name != '' && 
+                          <div className="answers">
+                            <div className ="category-label">Time Sign.</div>
+                            <div className = "results">{this.state.audioFacts.song_timeSignature} per bar</div>
+                          </div>}
+                        {this.state.nowPlaying.name != '' && 
+                          <div className="answers">
+                            <div className ="category-label">Key</div>
+                            <div className = "results">{this.state.modeConversion} </div>
+                          </div>}
+                        {this.state.nowPlaying.name != '' && 
+                          <div className="answers">
+                            <div className ="category-label">Tempo</div>
+                            <div className = "results">{this.state.audioFacts.song_tempo} BPM</div>
+                          </div>}
+                    </div>
+                  }
+                  </div>
+              </div>
+        </div>
+
     );
   }
 }

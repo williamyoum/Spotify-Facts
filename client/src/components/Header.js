@@ -4,14 +4,12 @@ import React from 'react';
 class Header extends React.Component {
     render() {
         return (
-            <div>
-                <div className= "headerTitle">
-                    DISCOVER
-                    KEY, 
-                    TIME SIGNATURE, 
-                    MODE, 
-                    TEMPO
-                </div>
+            <div className = "header-content">
+                <div className= "headerTitle">TRACKTHEORY</div>
+                <div className = "background-name-op">TRACKTHEORY</div>
+                <div className = "background-name-black">TRACKTHEORY</div>
+                <div className = "background-name-op">TRACKTHEORY</div>
+                
             </div>
 
         );

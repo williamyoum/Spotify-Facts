@@ -9,11 +9,9 @@ var client_id = process.env.SPOTIFY_CLIENT_ID
 // || '76e92a01f8a74ddf9f730783284c4606'; // Your client id
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET 
 // || 'ff2d04238d1a4e7ea8a197d65f99cb6d'; // Your secret
-// var redirect_uri = 'http://localhost:4002/callback'; // Your redirect uri
-var redirect_uri = process.env.REDIRECT_URI 
-|| 'http://localhost:4002/callback'
-var uri = process.env.FRONTEND_URI 
-|| 'http://localhost:3000'
+var redirect_uri = 'http://localhost:4002/callback'; // Your redirect uri
+// var redirect_uri = process.env.REDIRECT_URI || 'http://localhost:4002/callback'
+var uri = process.env.FRONTEND_URI || 'http://localhost:3000'
 
 
 var generateRandomString = function(length) {

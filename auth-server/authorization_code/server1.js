@@ -1,28 +1,21 @@
-/**
- * This is an example of a basic node.js script that performs
- * the Authorization Code oAuth2 flow to authenticate against
- * the Spotify Accounts.
- *
- * For more information, read
- * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
- */
-
 var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var app = express();
 
-var client_id = '76e92a01f8a74ddf9f730783284c4606'; // Your client id
-var client_secret = 'ff2d04238d1a4e7ea8a197d65f99cb6d'; // Your secret
-var redirect_uri = 'http://localhost:4002/callback'; // Your redirect uri
+var client_id = process.env.SPOTIFY_CLIENT_ID || '76e92a01f8a74ddf9f730783284c4606';
+var client_secret = process.env.SPOTIFY_CLIENT_SECRET || 'ff2d04238d1a4e7ea8a197d65f99cb6d';
+var redirect_uri = 'http://localhost:4002/callback';
+var uri = process.env.FRONTEND_URI || 'http://localhost:3000';
 
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
-var generateRandomString = function(length) {
+var generateRandomString = function (length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -34,14 +27,11 @@ var generateRandomString = function(length) {
 
 var stateKey = 'spotify_auth_state';
 
-var app = express();
-
 app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
 
 app.get('/login', function(req, res) {
-
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
@@ -102,9 +92,8 @@ app.get('/callback', function(req, res) {
         request.get(options, function(error, response, body) {
           console.log(body);
         });
-
         // we can also pass the token to the browser to make requests from there
-        res.redirect('http://localhost:3000/#' +
+        res.redirect(uri + '/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
@@ -143,5 +132,6 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
+let port = process.env.PORT || 4002
 console.log('Listening on 4002');
-app.listen(4002);
+app.listen(port);

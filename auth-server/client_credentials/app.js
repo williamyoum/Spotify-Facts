@@ -6,7 +6,6 @@
  * For more information, read
  * https://developer.spotify.com/web-api/authorization-guide/#client_credentials_flow
  */
-
 var request = require('request'); // "Request" library
 
 var client_id = 'CLIENT_ID'; // Your client id
@@ -24,7 +23,7 @@ var authOptions = {
   json: true
 };
 
-request.post(authOptions, function(error, response, body) {
+request.post(authOptions, function (error, response, body) {
   if (!error && response.statusCode === 200) {
 
     // use the access token to access the Spotify Web API
@@ -36,7 +35,7 @@ request.post(authOptions, function(error, response, body) {
       },
       json: true
     };
-    request.get(options, function(error, response, body) {
+    request.get(options, function (error, response, body) {
       console.log(body);
     });
   }
