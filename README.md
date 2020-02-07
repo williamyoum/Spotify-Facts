@@ -1,3 +1,5 @@
+Head to CLIENT folder for main app.
+
 This web application uses Spotify login authentication to access the current playing song, and provides song features such as time signature, tempo, key, mode.
 
 
