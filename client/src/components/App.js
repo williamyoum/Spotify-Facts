@@ -186,20 +186,18 @@ class App extends Component {
     return (
       <div className="App">
               <Header />
-                {/* http://tracklearn-backend.herokuapp.com/login */}
               <div className = "entrance-content">
                 <div className = "logo-content">
                  <img id="logo" src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-logo-transparent-vector-1.png" alt="Spotify Logo" />
                 </div>
                 {!this.state.loggedIn && 
                 <div className = "login-button">
-                  <a href= 'http://localhost:4002/'>
+                  <a href= 'http://tracklearn-backend.herokuapp.com/'>
                       <button id="button1">LOGIN</button>
                   </a>
                 </div>
                 }                
               </div>  
-
                 
           <div className = "main-content">
                 <div className = "button-content">
