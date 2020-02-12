@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../styles/App.scss';
 import Header from './Header.js';
 import SpotifyWebApi from 'spotify-web-api-js';
+import Button from './Button/Button.js';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -184,11 +185,13 @@ class App extends Component {
   }
   render() {
     return (
+
       <div className="App">
               <Header />
+              <Button />
               <div className = "entrance-content">
                 <div className = "logo-content">
-                 <img id="logo" src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-logo-transparent-vector-1.png" alt="Spotify Logo" />
+                  <img id="logo" src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-logo-transparent-vector-1.png" alt="Spotify Logo" />
                 </div>
                 {!this.state.loggedIn && 
                 <div className = "login-button">
@@ -196,7 +199,8 @@ class App extends Component {
                       <button id="button1">LOGIN</button>
                   </a>
                 </div>
-                }                
+                }          
+      
               </div>  
                 
           <div className = "main-content">
