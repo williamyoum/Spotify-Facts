@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../styles/App.scss';
 import Header from './Header.js';
 import SpotifyWebApi from 'spotify-web-api-js';
-import Button from './Button/Button.js';
 import LoginButton from './Button/LoginButton';
 
 const spotifyApi = new SpotifyWebApi();
