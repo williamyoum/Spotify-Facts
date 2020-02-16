@@ -3,6 +3,8 @@ import '../styles/App.scss';
 import Header from './Header.js';
 import SpotifyWebApi from 'spotify-web-api-js';
 import LoginButton from './Button/LoginButton';
+import NowPlaying from './NowPlaying/NowPlaying';
+import TrackFacts from './TrackFacts/TrackFacts';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -208,40 +210,8 @@ class App extends Component {
                 </div>
                 {/* text input for track name */}
                 {/* Audio Features Button */}
-                <div className="nowPlaying">
-                  <p>
-                    {this.state.nowPlaying.name}
-                  </p>
-                </div>
-                <div>
-                  {this.state.loggedIn &&
-                    <div className = "track-facts-rectangle">
-                      <div className = "album-art-box">
-                        <img src={this.state.nowPlaying.albumArt} alt="" style={{ height: 290, width: 290 }} />
-                      </div>
-                        {this.state.nowPlaying.name !== '' && 
-                          <div className="answers">
-                            <div className ="category-label">Key</div>
-                            <div className = "results">{this.state.keyConversion}</div>
-                          </div>}
-                        {this.state.nowPlaying.name !== '' && 
-                          <div className="answers">
-                            <div className ="category-label">Time Sign.</div>
-                            <div className = "results">{this.state.audioFacts.song_timeSignature} per bar</div>
-                          </div>}
-                        {this.state.nowPlaying.name !== '' && 
-                          <div className="answers">
-                            <div className ="category-label">Key</div>
-                            <div className = "results">{this.state.modeConversion} </div>
-                          </div>}
-                        {this.state.nowPlaying.name !== '' && 
-                          <div className="answers">
-                            <div className ="category-label">Tempo</div>
-                            <div className = "results">{this.state.audioFacts.song_tempo} BPM</div>
-                          </div>}
-                    </div>
-                  }
-                  </div>
+                <NowPlaying />
+                <TrackFacts />
               </div>
         </div>
 
